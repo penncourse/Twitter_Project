@@ -66,9 +66,7 @@ public class TwitterServiceProvider {
 
     @Subscribe
     public void loadTwitters(SearchEvent event){ //used token to get Twitter contents
-
-        Log.e(event.hashtag, Token.tokenMap.get(MainApplication.getAppContext()) +"100");
-
+        
         twitterService.getTwitterList("Bearer " + Token.tokenMap.get(MainApplication.getAppContext()), event.hashtag,
 
 
