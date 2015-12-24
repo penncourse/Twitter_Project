@@ -7,7 +7,7 @@ package com.upenn.twittersearch;
 import com.google.gson.annotations.SerializedName;
 
 public class Twitter {
-
+    //use gson to pare Json
 
     @SerializedName("created_at")
     public String createdAt;

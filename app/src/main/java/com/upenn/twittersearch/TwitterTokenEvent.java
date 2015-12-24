@@ -6,5 +6,4 @@ package com.upenn.twittersearch;
 public class TwitterTokenEvent {
 
 
-
 }

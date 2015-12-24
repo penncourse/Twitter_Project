@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent" android:layout_height="match_parent"
-    android:padding = "2dp">
+    android:padding = "2dp"
+    android:background="@color/dark_transparent"
+    >
 
     <ImageView
     android:id="@+id/user_image"
@@ -9,6 +11,7 @@
     android:layout_height="40dp"
     android:layout_alignParentLeft="true"
     android:layout_centerHorizontal="true"
+    android:clickable="false"
     />
 
     <LinearLayout
@@ -23,7 +26,8 @@
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="User"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:clickable="false"/>
         <TextView
         android:id="@+id/twitter_text"
         android:text="text"
@@ -31,7 +35,8 @@
         android:layout_gravity="center_vertical"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:clickable="false"/>
 
     </LinearLayout>
 

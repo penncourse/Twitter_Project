@@ -7,7 +7,7 @@ import java.util.ArrayList;
 /**
  * Created by Hua Zhu on 12/23/15.
  */
-public class TwitterList {
+public class TwitterList { //arrayList for containing Twitter objects
 
     @SerializedName("statuses")
     public ArrayList<Twitter> twitters;

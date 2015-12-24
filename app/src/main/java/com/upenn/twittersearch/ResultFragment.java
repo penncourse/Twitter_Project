@@ -1,32 +1,20 @@
 package com.upenn.twittersearch;
 
-import android.app.Activity;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.app.ListFragment;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
-import android.text.TextUtils;
-import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
+import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.TextView;
+import android.widget.ListView;
 
 import com.squareup.otto.Bus;
 import com.squareup.otto.Subscribe;
-import com.squareup.picasso.Picasso;
-
-import org.w3c.dom.Element;
-import org.w3c.dom.Text;
-
-import java.io.UnsupportedEncodingException;
-import java.util.ArrayList;
 
 
 /**
@@ -40,8 +28,6 @@ public class ResultFragment extends ListFragment {
 
     String request;
 
-    private TwitterService twitterService;
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
@@ -52,33 +38,36 @@ public class ResultFragment extends ListFragment {
 
         adapter = new TwitterAdapter(context, new TwitterList());
 
-        setListAdapter(adapter);
-
         request = getArguments().getString("Request");
 
         Button refreshButton = (Button) view.findViewById(R.id.refresh_button);
 
-        refreshButton.setOnClickListener(
+        refreshButton.setOnClickListener( /*refresh button is used to pull latest twitter feed.
+                                           There is a time interval for pulling. For example, for
+                                           a hot topic, like Christmas, we need to wait for
+                                           10 seconds to pull again.
+                                           If we pull too frequently, the app may not be able to update
+                                           feed every time.*/
 
                 new View.OnClickListener() {
 
                     @Override
                     public void onClick(View v) {
 
-                        String token = Token.tokenMap.get(MainApplication.getAppContext());
+                        String token = Token.tokenMap.get(MainApplication.getAppContext()); //get credential token
 
                         getBus().post(new SearchEvent(request, token));
 
+
                     }
                 }
-
         );
 
 
 
         Button backButton = (Button) view.findViewById(R.id.back_button);
 
-        backButton.setOnClickListener(
+        backButton.setOnClickListener( //back button can let us go back from the second screen to the first one.
 
                 new View.OnClickListener() {
 
@@ -92,6 +81,9 @@ public class ResultFragment extends ListFragment {
                         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
                         fragmentTransaction.setCustomAnimations(R.animator.slide_in, R.animator.slide_out, 0, 0);
+                                                                                             /*custom animation
+                                                                                             between screen transitions
+                                                                                              */
 
                         fragmentTransaction.replace(R.id.frame_container, new HomeFragment());
 
@@ -99,28 +91,34 @@ public class ResultFragment extends ListFragment {
 
                         fragmentTransaction.commit();
 
-                        Log.e("see here", "I am here");
-
-
                     }
                 });
 
 
 
+        final ListView myList = (ListView) view.findViewById(android.R.id.list);
+
+        myList.setAdapter(adapter);  //add adapter into listview
+
        return view;
 
     }
 
+
+
     @Override
     public void onStart() {
+
         super.onStart();
+
         getBus().register(this);
+
         if (Token.tokenMap.get(MainApplication.getAppContext()) == null) {
 
-            getBus().post(new TwitterTokenEvent());
+            getBus().post(new TwitterTokenEvent()); //if user does not have a token , first get a credential token
 
         } else {
-            String token = Token.tokenMap.get(getActivity());
+            String token = Token.tokenMap.get(getActivity());  //if user already has a token, send search feed request
 
             getBus().post(new SearchEvent(request, token));
         }
@@ -130,24 +128,23 @@ public class ResultFragment extends ListFragment {
     public void onStop() {
 
         super.onStop();
-        getBus().unregister(this);
 
+        getBus().unregister(this);
 
     }
 
 
     @Subscribe
-    public void GetTokenStartSearch(GetTwitterTokenSuccess event){
+    public void GetTokenStartSearch(GetTwitterTokenSuccessEvent event){ //listening the GetTwitterTokenSuccessEvent event
 
         getBus().post(new SearchEvent(request, Token.tokenMap.get(MainApplication.getAppContext())));
 
-
     }
 
 
     @Subscribe
-    public void twitterResponseEvent(TwitterResponseEvent event){
-
+    public void twitterResponseEvent(TwitterResponseEvent event){ /*listen TwitterResponseEvent, promptly put result in the
+                                                                   listview*/
         adapter.setTwitterList(event.tList);
 
         adapter.notifyDataSetChanged();
@@ -164,17 +161,5 @@ public class ResultFragment extends ListFragment {
 
         return bus;
     }
-
-    static class ElementContent{
-
-        TextView twitterContent;
-
-        TextView twitterUser;
-
-        ImageView twitterLogo;
-
-    }
-
-
 
 }

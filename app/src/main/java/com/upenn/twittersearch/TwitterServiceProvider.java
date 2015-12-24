@@ -5,12 +5,10 @@ import com.squareup.otto.Bus;
 import android.util.Base64;
 import android.util.Log;
 
-import com.squareup.otto.Bus;
 import com.squareup.otto.Subscribe;
 
 
 import java.io.UnsupportedEncodingException;
-import java.util.ArrayList;
 
 import retrofit.Callback;
 
@@ -37,15 +35,8 @@ public class TwitterServiceProvider {
     }
 
 
-
-    public static String getBase64String(String value) throws UnsupportedEncodingException {
-        return Base64.encodeToString(value.getBytes("UTF-8"), Base64.NO_WRAP);
-    }
-
-
-
     @Subscribe
-   public void getToken(TwitterTokenEvent event) throws UnsupportedEncodingException {
+   public void getToken(TwitterTokenEvent event) throws UnsupportedEncodingException { //used credential to get token from Twitter
 
        twitterService.getToken("Basic " + Base64.encodeToString(Constants.CREDENTIALS.getBytes("UTF-8"), Base64.NO_WRAP),
                "client_credentials", new Callback<TwitterToken>() {
@@ -56,7 +47,7 @@ public class TwitterServiceProvider {
 
                        Token.tokenMap.put(MainApplication.getAppContext(), accessToken);
 
-                       bus.post(new GetTwitterTokenSuccess());
+                       bus.post(new GetTwitterTokenSuccessEvent());
 
 
                    }
@@ -74,7 +65,7 @@ public class TwitterServiceProvider {
 
 
     @Subscribe
-    public void loadTwitters(SearchEvent event){
+    public void loadTwitters(SearchEvent event){ //used token to get Twitter contents
 
         Log.e(event.hashtag, Token.tokenMap.get(MainApplication.getAppContext()) +"100");
 

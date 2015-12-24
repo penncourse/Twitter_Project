@@ -7,6 +7,8 @@ import com.squareup.otto.Bus;
  */
 public class Buses {
 
+    //static variable makes sure that every time we work on the same object
+
     static Bus bus = null;
 
     public static Bus getBus(){

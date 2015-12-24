@@ -9,7 +9,6 @@ import java.util.HashMap;
  */
 public class Token {
 
-      static HashMap<Context, String> tokenMap = new HashMap<Context, String>();
-
+      static HashMap<Context, String> tokenMap = new HashMap<Context, String>(); //store token and corresponding context in the HashMap
 
 }

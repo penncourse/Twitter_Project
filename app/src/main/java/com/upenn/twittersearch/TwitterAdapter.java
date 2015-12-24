@@ -1,12 +1,16 @@
 package com.upenn.twittersearch;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.text.Layout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -20,7 +24,7 @@ import org.w3c.dom.Text;
  */
 
 
-public class TwitterAdapter extends BaseAdapter {
+public class TwitterAdapter extends BaseAdapter { //defines a customered adapter
 
     private Context context;
 
@@ -42,10 +46,15 @@ public class TwitterAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
+
         if (twitterList.twitters != null) {
+
             return twitterList.twitters.size();
+
         } else {
+
             return 0;
+
         }
     }
 
@@ -53,10 +62,10 @@ public class TwitterAdapter extends BaseAdapter {
     public Object getItem(int position)
     {
         return null;
-    }
+    } //This method is not used, but needs to override since this class extends abstract class
 
     @Override
-    public long getItemId(int position)
+    public long getItemId(int position) //Similar
     {
 
         return 0;
@@ -90,7 +99,6 @@ public class TwitterAdapter extends BaseAdapter {
         }
         else{
 
-
             element = (Element) rowView.getTag();
 
         }
@@ -100,7 +108,22 @@ public class TwitterAdapter extends BaseAdapter {
 
         element.user.setText(twitterList.twitters.get(position).user.userName);
 
-        Picasso.with(context).load(twitterList.twitters.get(position).user.imageUrl).into(element.logo);
+        Picasso.with(context).load(twitterList.twitters.get(position).user.imageUrl).into(element.logo);/*set user
+                                                                                                         profile image*/
+
+       if(rowView != null){
+
+             rowView.setOnClickListener(new View.OnClickListener() {
+
+                 @Override
+                 public void onClick(View v) {
+
+
+                 }
+             });
+
+        }
+
 
         return rowView;
 

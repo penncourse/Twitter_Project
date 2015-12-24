@@ -23,7 +23,7 @@ public class MainActivity extends ActionBarActivity {
 
         FragmentTransaction fragmentTransaction = frManager.beginTransaction();
 
-        fragmentTransaction.replace(R.id.frame_container, homeFragment);
+        fragmentTransaction.replace(R.id.frame_container, homeFragment); //starts from here and goes directly to the first screen
 
         fragmentTransaction.addToBackStack(null);
 

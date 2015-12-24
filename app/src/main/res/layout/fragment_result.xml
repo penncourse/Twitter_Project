@@ -4,14 +4,16 @@
     android:orientation="vertical"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:weightSum="1">
+    android:weightSum="1"
+    android:screenOrientation="landscape"
+    >
     <ListView
         android:id="@id/android:list"
         android:dividerHeight="1dp"
         android:divider="@android:color/black"
         android:cacheColorHint="@android:color/transparent"
-        android:layout_width="397dp"
-        android:layout_height="428dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_weight="0.96" />
 
     <LinearLayout
@@ -20,21 +22,34 @@
         android:layout_alignParentBottom="true"
         android:orientation="horizontal"
         android:padding="10dp"
+        android:screenOrientation="landscape"
         >
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Search"
-        android:id="@+id/back_button"
-        android:layout_marginLeft="35dp" />
+        <RelativeLayout
+            android:id="@+id/relativeLayout1"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/holo_blue_light" >
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Refresh"
-        android:id="@+id/refresh_button"
-        android:layout_marginLeft="100dp" />
+            <Button
+                android:id="@+id/back_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Search"
+                android:layout_alignParentLeft="true" />
+
+            <Button
+                android:id="@+id/refresh_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Refresh"
+                android:layout_alignParentRight="true"/>
+
+        </RelativeLayout>
+
+
+
+
     </LinearLayout>
 
 </LinearLayout>

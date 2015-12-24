@@ -27,7 +27,7 @@ public class MainApplication extends Application {
 
         serviceProvider = new TwitterServiceProvider(buildService(), bus);
 
-        bus.register(serviceProvider);
+        bus.register(serviceProvider); //register to receive and produce events
 
         bus.register(this);
 
@@ -38,7 +38,8 @@ public class MainApplication extends Application {
 
     public TwitterService buildService(){
 
-        return new RestAdapter.Builder().setEndpoint(Constants.TWITTER_URL).build().create(TwitterService.class);
+        return new RestAdapter.Builder().setEndpoint(Constants.TWITTER_URL).build().create(TwitterService.class); /*create an implementation
+                                                                                                                   of TwitterService class*/
 
     }
 

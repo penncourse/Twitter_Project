@@ -21,22 +21,17 @@ public class HomeFragment extends Fragment {
 
     private EditText search;
 
-    Context context;
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
-
-       // context = super.getActivity().getApplicationContext();
 
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
         search = (EditText) view.findViewById(R.id.search_hashtag);
 
-        final String search_word = search.getText().toString();
-
         Button search_button = (Button) view.findViewById(R.id.search_twitter_button);
 
-        search_button.setOnClickListener(
+        search_button.setOnClickListener( /*search button is on the first screen and press this button can trigger an action to
+                                            search related twitter feeds*/
 
                 new View.OnClickListener() {
 
@@ -51,7 +46,8 @@ public class HomeFragment extends Fragment {
 
                             data = new Bundle();
 
-                            data.putString("Request", search.getText().toString());
+                            data.putString("Request", search.getText().toString()); /*data is used to send message to another
+                                                                                     screen resultFragement*/
 
                             resultFragment.setArguments(data);
 
@@ -61,9 +57,13 @@ public class HomeFragment extends Fragment {
 
                             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
-                            fragmentTransaction.setCustomAnimations(R.animator.slide_in, R.animator.slide_out, 0, 0);
+                            fragmentTransaction.setCustomAnimations(R.animator.slide_in, R.animator.slide_out, 0, 0); /*add customer
+                                                                                                                       animation, slide_in
+                                                                                                                       and slide_out for
+                                                                                                                       changing from one screen
+                                                                                                                       to another*/
 
-                            fragmentTransaction.replace(R.id.frame_container, resultFragment);
+                            fragmentTransaction.replace(R.id.frame_container, resultFragment);    //from the first screen to the second one
 
                             fragmentTransaction.addToBackStack(null);
 
@@ -76,9 +76,7 @@ public class HomeFragment extends Fragment {
 
                             String text = "Please input a valid hashtag to search";
 
-
                         }
-
                     }
 
                 }

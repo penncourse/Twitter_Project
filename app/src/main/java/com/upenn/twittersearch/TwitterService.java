@@ -15,9 +15,7 @@ import retrofit.http.Query;
  */
 
 
-
-
-public interface TwitterService {
+public interface TwitterService { //interface provides methods to communicate with Twitter
 
     @GET(Constants.TWITTER_JSON)
     public void getTwitterList(@Header("Authorization")String token, @Query("q")String hashtag, Callback<TwitterList> callback);
